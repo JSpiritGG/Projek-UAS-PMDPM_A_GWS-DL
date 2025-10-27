@@ -1,3 +1,4 @@
+import tensorflow as tf
 import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -36,7 +37,7 @@ st.header('Tolong kirim foto makanan kalian (rawon, nasi liwet, rendang, panada)
 
 st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
-load_model('../model/BestModel_MobileNet_GWS DL.h5')
+model = load_model_from_path('../model/BestModel_MobileNet_GWS DL.h5')
 
 if uploaded_file is not None:
     # Tampilkan gambar yang diupload
