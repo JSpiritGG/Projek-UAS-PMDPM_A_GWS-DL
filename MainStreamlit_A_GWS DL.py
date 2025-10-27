@@ -36,7 +36,7 @@ def create_model(input_shape=(224,224,3), num_classes=4):
 @st.cache_resource
 def load_model_and_weights(weight_path):
     # Buat kerangka model yang "kosong"
-    model = create_model()
+    model = create_model(input_shape=(224,224,3), num_classes=4)
     # Muat "pengetahuan" (bobot) ke dalam kerangka tersebut
     model.load_weights(weight_path)
     return model
