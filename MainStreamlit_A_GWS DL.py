@@ -28,8 +28,7 @@ def create_model(num_classes=len(CLASS_NAMES)):
         Flatten(),
         Dense(512, activation='relu'),
         Dropout(0.5),
-        # DIPERBAIKI: Menggunakan num_classes (huruf kecil)
-        Dense(num_classes, activation='softmax')
+        Dense(4, activation='softmax')
     ])
     return model
 
