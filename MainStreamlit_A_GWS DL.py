@@ -1,10 +1,7 @@
-import tensorflow as tf
 import streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model
+# from tensorflow.keras.models import load_model
 from PIL import Image
-
-
 
 CLASS_NAMES = {
     0: 'nasi_liwet',
