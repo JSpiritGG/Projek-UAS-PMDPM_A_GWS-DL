@@ -35,7 +35,7 @@ def create_model(num_classes=len(CLASS_NAMES)): # Otomatis menggunakan jumlah ke
     Dropout(0.5), # Dropout sangat penting untuk mencegah overfitting pada data kecil
 
     # Lapisan Output
-    Dense(NUM_CLASSES, activation='softmax')
+    Dense(4, activation='softmax')
     ])
     return model
 
