@@ -2,28 +2,53 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import tensorflow as tf
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 
 # ==============================================
 # 1️⃣ Variabel dan Fungsi
 # ==============================================
 
-CLASS_NAMES = ['nasi_liwet', 'panada', 'rawon', 'rendang']
+# Definisikan ukuran gambar dan nama kelas
+# Pastikan keduanya SAMA PERSIS dengan yang ada di notebook training Anda
 IMG_SIZE = (224, 224) 
+CLASS_NAMES = ['nasi_liwet', 'panada', 'rawon', 'rendang']
 
-# Fungsi untuk memuat SELURUH model (menggunakan cache)
+# Fungsi untuk membuat arsitektur model
+def create_model(num_classes=len(CLASS_NAMES)):
+    # Arsitektur ini harus SAMA PERSIS dengan yang ada di notebook Anda
+    model = Sequential([
+        # Pastikan arsitektur ini cocok dengan model yang Anda latih
+        Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
+        MaxPooling2D((2, 2)),
+        Conv2D(64, (3, 3), activation='relu'),
+        MaxPooling2D((2, 2)),
+        Conv2D(128, (3, 3), activation='relu'),
+        MaxPooling2D((2, 2)),
+        Flatten(),
+        Dense(512, activation='relu'),
+        Dropout(0.5),
+        Dense(num_classes, activation='softmax')
+    ])
+    return model
+
+# Fungsi untuk memuat model dan bobotnya
 @st.cache_resource
-def load_full_model(model_path):
-    # Langsung muat seluruh model dari file .h5
-    model = load_model(model_path)
+def load_model_and_weights(weight_path):
+    # Buat kerangka model yang "kosong"
+    model = create_model()
+    # Muat "pengetahuan" (bobot) ke dalam kerangka tersebut
+    model.load_weights(weight_path)
     return model
 
 # Fungsi untuk prediksi gambar
 def predict_image(model, img):
-    img = img.resize(IMG_SIZE)
+    # Ukuran gambar diubah agar sesuai dengan input model
+    img = img.resize(IMG_SIZE) 
     img_array = np.array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = img_array / 255.0  # Pastikan preprocessing ini sama dengan saat training
+    # Pastikan preprocessing ini (/ 255.0) sama dengan saat training
+    img_array = img_array / 255.0  
 
     prediction = model.predict(img_array)
     return prediction
@@ -39,12 +64,11 @@ def main():
         image = Image.open(uploaded_file).convert("RGB")
         st.image(image, caption="Gambar yang diupload", use_container_width=True)
 
-        # Ganti dengan path ke file .h5 LENGKAP Anda
+        # Ganti dengan path ke file bobot (.weights.h5) Anda di GitHub
         model_path = "model/BestModel_AlexNet_GWS_DL.h5" 
 
         try:
-            # Panggil fungsi yang baru
-            model = load_full_model(model_path)
+            model = load_model_and_weights(model_path)
             
             if st.button('Prediksi Gambar'):
                 with st.spinner('Model sedang menganalisis...'):
