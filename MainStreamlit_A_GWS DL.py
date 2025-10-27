@@ -15,7 +15,7 @@ IMG_SIZE = (224, 224)
 CLASS_NAMES = ['nasi_liwet', 'panada', 'rawon', 'rendang']
 
 # Fungsi untuk membuat arsitektur model
-def create_model(num_classes=len(CLASS_NAMES)):
+def create_model(input_shape=(224,224,3), num_classes=4):
     # Arsitektur ini harus SAMA PERSIS dengan yang ada di notebook Anda
     model = Sequential([
         # Pastikan arsitektur ini cocok dengan model yang Anda latih
@@ -65,7 +65,7 @@ def main():
         st.image(image, caption="Gambar yang diupload", use_container_width=True)
 
         # Ganti dengan path ke file bobot (.weights.h5) Anda di GitHub
-        model_path = "model/BestModel_AlexNet_GWS_DL.h5" 
+        model_path = "model/BestModel_AlexNet_GWS_DL.h5"
 
         try:
             model = load_model_and_weights(model_path)
