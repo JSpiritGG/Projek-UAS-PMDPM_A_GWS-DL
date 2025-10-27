@@ -60,7 +60,7 @@ def main():
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")
-        st.image(image, caption="Gambar yang diupload", use_column_width=True)
+        st.image(image, caption="Gambar yang diupload", use_container_width=True)
 
         # Ganti dengan path ke file bobot Anda (.weights.h5)
         model_path = "model/BestModel_AlexNet_GWS_DL.h5" 
