@@ -11,6 +11,10 @@ CLASS_NAMES = {
     3: 'rendang'
 }
 
+def load_model_from_path(model_path):
+    model = load_model(model_path)
+    return model
+
 def predict_image(image, model):
     img = image.resize((224, 224))
     
