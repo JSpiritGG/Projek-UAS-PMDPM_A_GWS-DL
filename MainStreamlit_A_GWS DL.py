@@ -2,6 +2,7 @@ import streamlit as st
 from tensorflow.keras.models import load_model
 from PIL import Image
 import numpy as np
+import tensorflow as tf
 
 CLASS_NAMES = {
     0: 'nasi_liwet',
