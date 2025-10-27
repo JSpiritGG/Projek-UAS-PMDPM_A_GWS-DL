@@ -41,7 +41,7 @@ st.header('Tolong kirim foto makanan kalian (rawon, nasi liwet, rendang, panada)
 
 st.file_uploader('', type=['jpeg', 'jpg', 'png'])
 
-model = load_model_from_path('../model/BestModel_MobileNet_GWS DL.h5')
+model = load_model_from_path('model/BestModel_MobileNet_GWS DL.h5')
 
 if uploaded_file is not None:
     # Tampilkan gambar yang diupload
