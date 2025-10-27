@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout, GlobalAveragePooling2D
 
 # ==============================================
 # 1️⃣ Variabel dan Fungsi
@@ -25,7 +25,7 @@ def create_model(input_shape=(224,224,3), num_classes=4):
         MaxPooling2D((2, 2)),
         Conv2D(128, (3, 3), activation='relu'),
         MaxPooling2D((2, 2)),
-        Flatten(),
+        GlobalAveragePooling2D(),
         Dense(512, activation='relu'),
         Dropout(0.5),
         Dense(num_classes, activation='softmax')
